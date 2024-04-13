@@ -59,7 +59,7 @@ router.get("", async (req, res) => {
 
   try {
     const data = await Post.find();
-    res.render('index', { locals, data })
+    res.render('index', { locals, data, currentRoute: '/' })
   } catch (error) {
     console.log(error);
   }
@@ -80,7 +80,7 @@ router.get("/post/:id", async (req, res) => {
       description: "Simple blog created with NodeJS, Express and MongoDB",
     };
 
-    res.render('post', { locals, data })
+    res.render('post', { locals, data, currentRoute: `/post/${slug}` })
   } catch (error) {
     console.log(error);
   }
@@ -120,7 +120,16 @@ router.get("/about", (req, res) => {
     description: "About page",
   };
 
-  res.render("about", { locals });
+  res.render("about", { locals, currentRoute: '/about' });
 });
+
+router.get("/contact", (req, res) => {
+  const locals = {
+    title: "Contact",
+    description: "Contact Page"
+  };
+
+  res.render("contact", { locals, currentRoute: '/contact' });
+})
 
 module.exports = router;
